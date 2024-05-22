@@ -19,6 +19,12 @@ body {
   background: linear-gradient(135deg, #3b4cca 0%, #ff3535 100%);
   color: var(--white-color);
 }
+.container {
+  display: flex;
+  max-width: 300px;
+  flex-direction: column;
+  gap: 50px;
+}
 
 .header {
   margin: 0;
@@ -64,4 +70,22 @@ button.correct {
 button.wrong {
   background-color: var(--button-wrong);
   color: var(--white-color);
+}
+
+#loadingContainer {
+  height: 500px;
+}
+
+#loadingIcon {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: 20%;
+}
+
+#points {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
 }
