@@ -38,10 +38,23 @@ async function loadQuestionWithOptions() {
     const randomOption = randomPokemon.name;
     options.push(randomOption);
   }
+
+  shuffleArray(options);
+
+  resultElement.textContent = "Who's that pokemon?";
+  pokemonImageElement.src = pokemon.sprites.other.dream_world.front_default;
+
+  console.log(options);
 }
 
 loadQuestionWithOptions();
 
 function getRandomPokemonId() {
   return Math.floor(Math.random() * 151) + 1; //150
+}
+
+function shuffleArray(array) {
+  return array.sort(() => {
+    Math.random() - 0.5;
+  });
 }
