@@ -8,6 +8,7 @@ const LoadingContainer = document.getElementById("loadingContainer");
 
 let usedPokemonIds = [];
 let count = 0;
+let points = 0;
 
 async function fetchPokemonById(id) {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -61,10 +62,19 @@ function checkAnswer(isCorrect, event) {
 
   if (selectedButton) {
     return;
+  }
+  event.target.classList.add("selected");
+  count++;
+  totalCount.textContent = count;
+
+  if (isCorrect) {
+    displayResult("Correct Answer");
+    points++;
+    pointsElement.textContent = points;
+    event.target.classList.add("correct");
   } else {
-    event.target.classList.add("selected");
-    count++;
-    totalCount.textContent = count;
+    displayResult("Wrong answer...");
+    event.target.classList.add("wrong");
   }
 }
 
@@ -78,4 +88,8 @@ function shuffleArray(array) {
   return array.sort(() => {
     Math.random() - 0.5;
   });
+}
+
+function displayResult(result) {
+  resultElement.textContent = result;
 }
