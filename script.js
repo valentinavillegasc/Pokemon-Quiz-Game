@@ -7,6 +7,7 @@ const mainContainer = document.getElementById("container");
 const LoadingContainer = document.getElementById("loadingContainer");
 
 let usedPokemonIds = [];
+let count = 0;
 
 async function fetchPokemonById(id) {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -44,7 +45,27 @@ async function loadQuestionWithOptions() {
   resultElement.textContent = "Who's that pokemon?";
   pokemonImageElement.src = pokemon.sprites.other.dream_world.front_default;
 
-  console.log(options);
+  optionsContainer.innerHTML = "";
+  options.forEach((option) => {
+    const button = document.createElement("button");
+    button.textContent = option;
+    button.onclick = (event) => {
+      checkAnswer(option === pokemon.name, event);
+    };
+    optionsContainer.appendChild(button);
+  });
+}
+
+function checkAnswer(isCorrect, event) {
+  const selectedButton = document.querySelector(".selected");
+
+  if (selectedButton) {
+    return;
+  } else {
+    event.target.classList.add("selected");
+    count++;
+    totalCount.textContent = count;
+  }
 }
 
 loadQuestionWithOptions();
