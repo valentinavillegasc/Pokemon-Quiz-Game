@@ -9,6 +9,7 @@ const LoadingContainer = document.getElementById("loadingContainer");
 let usedPokemonIds = [];
 let count = 0;
 let points = 0;
+let showLoading = false;
 
 async function fetchPokemonById(id) {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -76,6 +77,11 @@ function checkAnswer(isCorrect, event) {
     displayResult("Wrong answer...");
     event.target.classList.add("wrong");
   }
+
+  setTimeout(() => {
+    showLoading = true;
+    loadQuestionWithOptions();
+  }, 1000);
 }
 
 loadQuestionWithOptions();
