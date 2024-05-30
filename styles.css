@@ -89,3 +89,10 @@ button.wrong {
   font-weight: 700;
   text-align: center;
 }
+
+.show {
+  display: flex;
+}
+.hide {
+  display: none;
+}

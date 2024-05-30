@@ -4,7 +4,7 @@ const optionsContainer = document.getElementById("options");
 const pointsElement = document.getElementById("pointsValue");
 const totalCount = document.getElementById("totalCount");
 const mainContainer = document.getElementById("container");
-const LoadingContainer = document.getElementById("loadingContainer");
+const loadingContainer = document.getElementById("loadingContainer");
 
 let usedPokemonIds = [];
 let count = 0;
@@ -12,6 +12,7 @@ let points = 0;
 let showLoading = false;
 
 async function fetchPokemonById(id) {
+  showLoading = true;
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
   const data = await response.json();
   return data;
@@ -19,6 +20,10 @@ async function fetchPokemonById(id) {
 
 //Function to load questio with options
 async function loadQuestionWithOptions() {
+  if (showLoading) {
+    showLoadingWindow();
+    hidePuzzleWindow();
+  }
   let pokemonId = getRandomPokemonId();
 
   while (usedPokemonIds.includes(pokemonId)) {
@@ -40,6 +45,10 @@ async function loadQuestionWithOptions() {
     const randomPokemon = await fetchPokemonById(randomPokemonId);
     const randomOption = randomPokemon.name;
     options.push(randomOption);
+
+    if (options.length === 4) {
+      showLoading = false;
+    }
   }
 
   shuffleArray(options);
@@ -56,6 +65,11 @@ async function loadQuestionWithOptions() {
     };
     optionsContainer.appendChild(button);
   });
+
+  if (!showLoading) {
+    hideLoadingWindow();
+    showPuzzleWindow();
+  }
 }
 
 function checkAnswer(isCorrect, event) {
@@ -98,4 +112,8 @@ function shuffleArray(array) {
 
 function displayResult(result) {
   resultElement.textContent = result;
+}
+
+function hideLoadingWindow() {
+  loadingContainer.classList.add("hide");
 }
