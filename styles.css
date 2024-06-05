@@ -96,3 +96,26 @@ button.wrong {
 .hide {
   display: none;
 }
+
+/* Intro */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+.intro-container,
+.game-container {
+  text-align: center;
+}
+.game-container {
+  display: none; /* Initially hide the game container */
+}
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
