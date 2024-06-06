@@ -133,3 +133,19 @@ function showPuzzleWindow() {
 function hidePuzzleWindow() {
   mainContainer[0].classList.add("hide");
 }
+
+/* Intro */
+document.addEventListener("DOMContentLoaded", function () {
+  const introContainer = document.querySelector(".intro-container");
+  const gameContainer = document.querySelector(".game-container");
+  const startButton = document.getElementById("startGame");
+
+  // Show the intro container on page load
+  introContainer.style.display = "block";
+
+  startButton.addEventListener("click", function () {
+    // Hide the intro container and show the game container
+    introContainer.style.display = "none";
+    gameContainer.style.display = "block";
+  });
+});
