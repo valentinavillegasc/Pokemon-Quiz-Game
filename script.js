@@ -2,9 +2,14 @@ const resultElement = document.getElementById("result");
 const pokemonImageElement = document.getElementById("pokemonImage");
 const optionsContainer = document.getElementById("options");
 const pointsElement = document.getElementById("pointsValue");
-const totalCount = document.getElementById("totalCount");
-const mainContainer = document.getElementsByClassName("container");
+const totalCountElement = document.getElementById("totalCount");
+const mainContainer = document.getElementsByClassName("container")[0];
 const loadingContainer = document.getElementById("loadingContainer");
+const overContainer = document.querySelector(".over-container");
+const startGameButton = document.getElementById("startGame");
+const restartGameButton = document.getElementById("restartGame");
+const finalPointsElement = document.getElementById("finalPointsValue");
+const finalTotalCountElement = document.getElementById("finalTotalCount");
 
 let usedPokemonIds = [];
 let count = 0;
@@ -18,7 +23,7 @@ async function fetchPokemonById(id) {
   return data;
 }
 
-//Function to load questio with options
+// Function to load question with options
 async function loadQuestionWithOptions() {
   if (showLoading) {
     showLoadingWindow();
@@ -80,7 +85,7 @@ function checkAnswer(isCorrect, event) {
   }
   event.target.classList.add("selected");
   count++;
-  totalCount.textContent = count;
+  totalCountElement.textContent = count;
 
   if (isCorrect) {
     displayResult("Correct Answer");
@@ -92,22 +97,40 @@ function checkAnswer(isCorrect, event) {
     event.target.classList.add("wrong");
   }
 
-  setTimeout(() => {
-    showLoading = true;
-    loadQuestionWithOptions();
-  }, 1000);
+  if (count === 10) {
+    endGame();
+  } else {
+    setTimeout(() => {
+      showLoading = true;
+      loadQuestionWithOptions();
+    }, 1000);
+  }
 }
 
-loadQuestionWithOptions();
+function endGame() {
+  mainContainer.classList.add("hide");
+  overContainer.classList.remove("hide");
+  finalPointsElement.textContent = points;
+  finalTotalCountElement.textContent = count;
+}
+
+restartGameButton.addEventListener("click", () => {
+  count = 0;
+  points = 0;
+  usedPokemonIds = [];
+  pointsElement.textContent = points;
+  totalCountElement.textContent = count;
+  overContainer.classList.add("hide");
+  mainContainer.classList.remove("hide");
+  loadQuestionWithOptions();
+});
 
 function getRandomPokemonId() {
   return Math.floor(Math.random() * 151) + 1; //150
 }
 
 function shuffleArray(array) {
-  return array.sort(() => {
-    Math.random() - 0.5;
-  });
+  return array.sort(() => Math.random() - 0.5);
 }
 
 function displayResult(result) {
@@ -119,33 +142,33 @@ function hideLoadingWindow() {
 }
 
 function showLoadingWindow() {
-  mainContainer[0].classList.remove("show");
+  mainContainer.classList.remove("show");
   loadingContainer.classList.remove("hide");
   loadingContainer.classList.add("show");
 }
 
 function showPuzzleWindow() {
   loadingContainer.classList.remove("show");
-  mainContainer[0].classList.remove("hide");
-  mainContainer[0].classList.add("show");
+  mainContainer.classList.remove("hide");
+  mainContainer.classList.add("show");
 }
 
 function hidePuzzleWindow() {
-  mainContainer[0].classList.add("hide");
+  mainContainer.classList.add("hide");
 }
 
 /* Intro */
 document.addEventListener("DOMContentLoaded", function () {
   const introContainer = document.querySelector(".intro-container");
   const gameContainer = document.querySelector(".game-container");
-  const startButton = document.getElementById("startGame");
 
   // Show the intro container on page load
   introContainer.style.display = "block";
 
-  startButton.addEventListener("click", function () {
+  startGameButton.addEventListener("click", function () {
     // Hide the intro container and show the game container
     introContainer.style.display = "none";
     gameContainer.style.display = "block";
+    loadQuestionWithOptions();
   });
 });
