@@ -26,6 +26,32 @@
       <div id="loadingContainer" class="loading-container">
         <img id="loadingIcon" src="loading_icon.gif" alt="loading..." />
       </div>
+
+      <div class="over-container hide">
+        <h1>Game Over!</h1>
+        <h4 id="finalPoints">
+          Points: <span id="finalPointsValue">0</span>/<span
+            id="finalTotalCount"
+            >0</span
+          >
+        </h4>
+        <button id="restartGame">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-rotate-clockwise"
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#000000"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
+          </svg>
+        </button>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
