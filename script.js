@@ -10,6 +10,7 @@ const startGameButton = document.getElementById("startGame");
 const restartGameButton = document.getElementById("restartGame");
 const finalPointsElement = document.getElementById("finalPointsValue");
 const finalTotalCountElement = document.getElementById("finalTotalCount");
+const frasesElement = document.getElementById("frases");
 
 let usedPokemonIds = [];
 let count = 0;
@@ -112,6 +113,35 @@ function endGame() {
   overContainer.classList.remove("hide");
   finalPointsElement.textContent = points;
   finalTotalCountElement.textContent = count;
+
+  let message = "";
+
+  if (points === 1) {
+    message = "Congratulations!";
+  } else if (points > 5 && points < 10) {
+    const midRangeMessages = [
+      "Good job!",
+      "Well done!",
+      "You did great!",
+      "Nice effort!",
+    ];
+    message = getRandomMessage(midRangeMessages);
+  } else if (points <= 5) {
+    const lowRangeMessages = [
+      "Better luck next time!",
+      "Keep trying!",
+      "Don't give up!",
+      "You can do better!",
+    ];
+    message = getRandomMessage(lowRangeMessages);
+  }
+
+  frasesElement.textContent = message;
+}
+
+function getRandomMessage(messages) {
+  const randomIndex = Math.floor(Math.random() * messages.length);
+  return messages[randomIndex];
 }
 
 restartGameButton.addEventListener("click", () => {
