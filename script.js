@@ -11,6 +11,7 @@ const restartGameButton = document.getElementById("restartGame");
 const finalPointsElement = document.getElementById("finalPointsValue");
 const finalTotalCountElement = document.getElementById("finalTotalCount");
 const frasesElement = document.getElementById("frases");
+const backgroundMusic = document.getElementById("backgroundMusic");
 
 let usedPokemonIds = [];
 let count = 0;
@@ -201,4 +202,17 @@ document.addEventListener("DOMContentLoaded", function () {
     gameContainer.style.display = "block";
     loadQuestionWithOptions();
   });
+});
+
+/*Background music */
+const startButton = document.getElementById("startGame");
+const restartButton = document.getElementById("restartGame");
+
+startButton.addEventListener("click", function () {
+  backgroundMusic.play();
+});
+
+restartButton.addEventListener("click", function () {
+  backgroundMusic.currentTime = 0; // Reinicia la música
+  backgroundMusic.play();
 });
