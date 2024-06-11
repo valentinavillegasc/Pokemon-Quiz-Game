@@ -12,6 +12,8 @@ const finalPointsElement = document.getElementById("finalPointsValue");
 const finalTotalCountElement = document.getElementById("finalTotalCount");
 const frasesElement = document.getElementById("frases");
 const backgroundMusic = document.getElementById("backgroundMusic");
+const wrongAnswerSound = document.getElementById("wrongAnswerSound");
+const correctAnswerSound = document.getElementById("correctAnswerSound");
 
 let usedPokemonIds = [];
 let count = 0;
@@ -94,9 +96,11 @@ function checkAnswer(isCorrect, event) {
     points++;
     pointsElement.textContent = points;
     event.target.classList.add("correct");
+    playCorrectAnswerSound();
   } else {
     displayResult("Wrong answer...");
     event.target.classList.add("wrong");
+    playWrongAnswerSound();
   }
 
   if (count === 10) {
@@ -216,3 +220,21 @@ restartButton.addEventListener("click", function () {
   backgroundMusic.currentTime = 0; // Reinicia la música
   backgroundMusic.play();
 });
+
+/*Answers sounds */
+
+function playWrongAnswerSound() {
+  wrongAnswerSound.play();
+  setTimeout(() => {
+    wrongAnswerSound.pause();
+    wrongAnswerSound.currentTime = 0;
+  }, 500);
+}
+
+function playCorrectAnswerSound() {
+  correctAnswerSound.play();
+  setTimeout(() => {
+    correctAnswerSound.pause();
+    correctAnswerSound.currentTime = 0;
+  }, 1000);
+}
