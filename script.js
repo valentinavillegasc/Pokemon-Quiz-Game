@@ -14,6 +14,7 @@ const frasesElement = document.getElementById("frases");
 const backgroundMusic = document.getElementById("backgroundMusic");
 const wrongAnswerSound = document.getElementById("wrongAnswerSound");
 const correctAnswerSound = document.getElementById("correctAnswerSound");
+const endGameSound = document.getElementById("endGameSound");
 
 let usedPokemonIds = [];
 let count = 0;
@@ -118,6 +119,8 @@ function endGame() {
   overContainer.classList.remove("hide");
   finalPointsElement.textContent = points;
   finalTotalCountElement.textContent = count;
+  backgroundMusic.pause();
+  playEndGameSound();
 
   let message = "";
 
@@ -220,6 +223,7 @@ restartButton.addEventListener("click", function () {
   backgroundMusic.currentTime = 0; // Reinicia la música
   backgroundMusic.play();
 });
+backgroundMusic.volume = 0.3;
 
 /*Answers sounds */
 
@@ -236,5 +240,13 @@ function playCorrectAnswerSound() {
   setTimeout(() => {
     correctAnswerSound.pause();
     correctAnswerSound.currentTime = 0;
+  }, 1000);
+}
+
+function playEndGameSound() {
+  endGameSound.play();
+  setTimeout(() => {
+    endGameSound.pause();
+    endGameSound.currentTime = 0;
   }, 1000);
 }
