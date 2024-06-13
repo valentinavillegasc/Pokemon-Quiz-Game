@@ -105,7 +105,9 @@ function checkAnswer(isCorrect, event) {
   }
 
   if (count === 10) {
-    endGame();
+    setTimeout(() => {
+      endGame();
+    }, 1000);
   } else {
     setTimeout(() => {
       showLoading = true;
